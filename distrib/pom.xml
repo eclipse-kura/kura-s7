@@ -34,11 +34,6 @@
             <groupId>org.eclipse.kura</groupId>
             <artifactId>org.eclipse.kura.driver.s7plc.provider</artifactId>
         </dependency>
-        <!--
-            The Moka7 S7 library is not part of the Kura runtime: it used to be
-            shipped by the S7 deployment package and is now shipped by this
-            Debian package.
-        -->
         <dependency>
             <groupId>org.eclipse.kura</groupId>
             <artifactId>org.moka7</artifactId>
@@ -184,7 +179,6 @@
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
-                    <!-- the Moka7 library, a plain OSGi bundle with no components -->
                     <execution>
                         <id>copy-deps-5s</id>
                         <phase>generate-resources</phase>
@@ -201,7 +195,6 @@
                             </includeArtifactIds>
                         </configuration>
                     </execution>
-                    <!-- the Driver, started at the same level as the Kura drivers -->
                     <execution>
                         <id>copy-deps-6s</id>
                         <phase>generate-resources</phase>

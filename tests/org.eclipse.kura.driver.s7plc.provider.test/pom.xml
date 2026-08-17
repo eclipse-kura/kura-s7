@@ -33,11 +33,6 @@
             <groupId>org.eclipse.kura</groupId>
             <artifactId>org.eclipse.kura.driver.s7plc.provider</artifactId>
         </dependency>
-        <!--
-            org.eclipse.kura.driver.block is inlined in the bundle under test, so
-            it is not visible as an OSGi package: the unit tests need it on the
-            compile classpath explicitly.
-        -->
         <dependency>
             <groupId>org.eclipse.kura</groupId>
             <artifactId>org.eclipse.kura.driver.block</artifactId>
