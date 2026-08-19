@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2017, 2026 Eurotech and/or its affiliates and others
+
+    This program and the accompanying materials are made
+    available under the terms of the Eclipse Public License 2.0
+    which is available at https://www.eclipse.org/legal/epl-2.0/
+
+    SPDX-License-Identifier: EPL-2.0
+
+    Contributors:
+     Eurotech
+     Amit Kumar Mondal (admin@amitinside.com)
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.eclipse.kura</groupId>
+        <artifactId>kura-s7</artifactId>
+        <version>2.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>org.eclipse.kura.driver.s7plc.provider</artifactId>
+    <description>S7 PLC Communication Driver</description>
+
+    <properties>
+        <sonar.coverage.jacoco.xmlReportPaths>
+            ${project.basedir}/../tests/*/target/site/jacoco-aggregate/jacoco.xml
+        </sonar.coverage.jacoco.xmlReportPaths>
+
+        <driver.block.jar>${project.build.directory}/lib/org.eclipse.kura.driver.block.jar</driver.block.jar>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.kura</groupId>
+            <artifactId>org.eclipse.kura.api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.kura</groupId>
+            <artifactId>org.eclipse.kura.core.configuration</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.kura</groupId>
+            <artifactId>org.eclipse.kura.util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.kura</groupId>
+            <artifactId>org.eclipse.kura.driver.block</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.kura</groupId>
+            <artifactId>org.moka7</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.component.annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.metatype.annotations</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-embedded-libs</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <includeArtifactIds>org.eclipse.kura.driver.block</includeArtifactIds>
+                            <excludeTransitive>true</excludeTransitive>
+                            <stripVersion>true</stripVersion>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>biz.aQute.bnd</groupId>
+                <artifactId>bnd-maven-plugin</artifactId>
+                <configuration>
+                    <includeClassesDir>true</includeClassesDir>
+                    <bnd><![CDATA[
+                        Bundle-Name: S7 PLC Communication Driver
+                        Bundle-SymbolicName: ${project.artifactId};singleton:=true
+                        Bundle-Vendor: Eclipse Kura
+                        Bundle-ActivationPolicy: lazy
+                        Service-Component: OSGI-INF/*.xml
+                        Import-Package: \
+                            Moka7;version="[1.0,1.1)",\
+                            org.eclipse.kura;version="[1.2,2.0)",\
+                            org.eclipse.kura.channel;version="[1.0,2.0)",\
+                            org.eclipse.kura.channel.listener;version="[1.0,2.0)",\
+                            org.eclipse.kura.configuration;version="[1.1,2.0)",\
+                            org.eclipse.kura.configuration.metatype;version="[1.0,2.0)",\
+                            org.eclipse.kura.core.configuration.metatype;version="[1.0,2.0)",\
+                            org.eclipse.kura.crypto;version="[1.2,2.0)",\
+                            org.eclipse.kura.driver;version="[1.0,1.1)",\
+                            org.eclipse.kura.type;version="[1.0,2.0)",\
+                            org.eclipse.kura.util.base;version="[1.0,2.0)",\
+                            org.eclipse.kura.util.collection;version="[1.0,2.0)",\
+                            *
+                        -includeresource: about_files=about_files/,\
+                            about.html,\
+                            OSGI-INF=OSGI-INF/,\
+                            @${driver.block.jar}!/!(META-INF|about.html|about_files)/*
+                        ]]></bnd>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
