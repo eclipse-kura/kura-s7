@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright (c) 2017, 2020 Eurotech and/or its affiliates and others
- * 
+ *
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
- * 
+ *
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Contributors:
  *  Eurotech
  ******************************************************************************/
@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
-
 import org.eclipse.kura.channel.ChannelRecord;
 import org.eclipse.kura.core.testutil.TestUtil;
 import org.eclipse.kura.driver.binary.BinaryData;
@@ -140,5 +139,4 @@ public class S7PlcTaskBuilderTest {
 
         return channel;
     }
-
 }

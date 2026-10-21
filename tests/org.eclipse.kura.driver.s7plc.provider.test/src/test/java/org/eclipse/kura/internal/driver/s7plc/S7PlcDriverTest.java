@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright (c) 2017, 2020 Eurotech and/or its affiliates and others
- * 
+ *
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
- * 
+ *
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Contributors:
  *  Eurotech
  ******************************************************************************/
@@ -22,11 +22,12 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import Moka7.S7;
+import Moka7.S7Client;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.eclipse.kura.KuraErrorCode;
 import org.eclipse.kura.KuraException;
 import org.eclipse.kura.core.testutil.TestUtil;
@@ -38,9 +39,6 @@ import org.eclipse.kura.driver.block.task.BlockTask;
 import org.eclipse.kura.driver.block.task.Mode;
 import org.eclipse.kura.driver.block.task.ToplevelBlockTask;
 import org.junit.Test;
-
-import Moka7.S7;
-import Moka7.S7Client;
 
 public class S7PlcDriverTest {
 
@@ -111,10 +109,12 @@ public class S7PlcDriverTest {
         svc.activate(Collections.emptyMap());
 
         doAnswer(invocation -> {
-            s7Mock.Connected = false; // set it to false so that connection attempt can be made later on
+                    s7Mock.Connected = false; // set it to false so that connection attempt can be made later on
 
-            return null;
-        }).when(s7Mock).Disconnect();
+                    return null;
+                })
+                .when(s7Mock)
+                .Disconnect();
 
         when(s7Mock.ConnectTo(address, rack, slot)).thenReturn(0);
 
@@ -303,9 +303,11 @@ public class S7PlcDriverTest {
 
         BlockTask task = mock(BlockTask.class);
         doAnswer(invocation -> {
-            svc.read(db, offset, data);
-            return null;
-        }).when(task).run();
+                    svc.read(db, offset, data);
+                    return null;
+                })
+                .when(task)
+                .run();
 
         svc.runTask(task); // no exception is expected
 

@@ -1,25 +1,25 @@
 /**
  * Copyright (c) 2017, 2020 Eurotech and/or its affiliates and others
- * 
+ *
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
- * 
+ *
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Contributors:
  *  Eurotech
  */
-
 package org.eclipse.kura.internal.driver.s7plc;
 
+import Moka7.S7;
+import Moka7.S7Client;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Stream;
-
 import org.eclipse.kura.KuraException;
 import org.eclipse.kura.channel.ChannelRecord;
 import org.eclipse.kura.configuration.ConfigurableComponent;
@@ -34,9 +34,6 @@ import org.eclipse.kura.internal.driver.s7plc.task.S7PlcTaskBuilder;
 import org.eclipse.kura.internal.driver.s7plc.task.S7PlcToplevelBlockTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import Moka7.S7;
-import Moka7.S7Client;
 
 /**
  * The Kura S7PlcDriver is a S7 PLC Driver implementation for Kura Asset-Driver
@@ -103,7 +100,8 @@ public class S7PlcDriver extends AbstractBlockDriver<S7PlcDomain> implements Con
         logger.debug("Authenticating");
         int code;
         try {
-            code = state.client.SetSessionPassword(decryptPassword(state.options.getPassword().toCharArray()));
+            code = state.client.SetSessionPassword(
+                    decryptPassword(state.options.getPassword().toCharArray()));
         } catch (Exception e) {
             throw new ConnectionException(e);
         }
@@ -127,8 +125,8 @@ public class S7PlcDriver extends AbstractBlockDriver<S7PlcDomain> implements Con
             if (!this.state.client.Connected) {
                 logger.debug("Connecting to S7 PLC...");
                 this.state.client.SetConnectionType(S7.OP);
-                int code = this.state.client.ConnectTo(currentOptions.getIp(), currentOptions.getRack(),
-                        currentOptions.getSlot());
+                int code = this.state.client.ConnectTo(
+                        currentOptions.getIp(), currentOptions.getRack(), currentOptions.getSlot());
                 if (code != 0) {
                     throw new ConnectionException("Failed to connect to PLC, ConnectTo() failed with code: " + code);
                 }
@@ -201,16 +199,16 @@ public class S7PlcDriver extends AbstractBlockDriver<S7PlcDomain> implements Con
     public synchronized void write(int db, int offset, byte[] data) throws IOException {
         int result = this.state.client.WriteArea(S7.S7AreaDB, db, offset, data.length, data);
         if (result != 0) {
-            throw new Moka7Exception("DB: " + db + " off: " + offset + " len: " + data.length + " status: " + result,
-                    result);
+            throw new Moka7Exception(
+                    "DB: " + db + " off: " + offset + " len: " + data.length + " status: " + result, result);
         }
     }
 
     public synchronized void read(int db, int offset, byte[] data) throws IOException {
         int result = this.state.client.ReadArea(S7.S7AreaDB, db, offset, data.length, data);
         if (result != 0) {
-            throw new Moka7Exception("DB: " + db + " off: " + offset + " len: " + data.length + " status: " + result,
-                    result);
+            throw new Moka7Exception(
+                    "DB: " + db + " off: " + offset + " len: " + data.length + " status: " + result, result);
         }
     }
 
@@ -221,6 +219,7 @@ public class S7PlcDriver extends AbstractBlockDriver<S7PlcDomain> implements Con
          *
          */
         private static final long serialVersionUID = -6118257067654374279L;
+
         private final int statusCode;
 
         public Moka7Exception(String message, int statusCode) {

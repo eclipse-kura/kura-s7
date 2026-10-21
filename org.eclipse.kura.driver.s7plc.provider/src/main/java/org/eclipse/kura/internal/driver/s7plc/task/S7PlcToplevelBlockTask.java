@@ -1,20 +1,18 @@
 /*******************************************************************************
  * Copyright (c) 2017, 2020 Eurotech and/or its affiliates and others
- * 
+ *
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
- * 
+ *
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Contributors:
  *  Eurotech
  *******************************************************************************/
-
 package org.eclipse.kura.internal.driver.s7plc.task;
 
 import java.io.IOException;
-
 import org.eclipse.kura.driver.binary.Buffer;
 import org.eclipse.kura.driver.binary.ByteArrayBuffer;
 import org.eclipse.kura.driver.block.task.Mode;
@@ -40,11 +38,17 @@ public class S7PlcToplevelBlockTask extends ToplevelBlockTask {
     @Override
     public void processBuffer() throws IOException {
         if (getMode() == Mode.READ) {
-            logger.debug("Reading from PLC, DB{} offset: {} length: {}", this.areaNo, getStart(),
+            logger.debug(
+                    "Reading from PLC, DB{} offset: {} length: {}",
+                    this.areaNo,
+                    getStart(),
                     getBuffer().getLength());
             this.driver.read(this.areaNo, getStart(), ((ByteArrayBuffer) getBuffer()).getBackingArray());
         } else {
-            logger.debug("Writing to PLC, DB{} offset: {} length: {}", this.areaNo, getStart(),
+            logger.debug(
+                    "Writing to PLC, DB{} offset: {} length: {}",
+                    this.areaNo,
+                    getStart(),
                     getBuffer().getLength());
             this.driver.write(this.areaNo, getStart(), ((ByteArrayBuffer) getBuffer()).getBackingArray());
         }
@@ -57,5 +61,4 @@ public class S7PlcToplevelBlockTask extends ToplevelBlockTask {
         }
         return this.data;
     }
-
 }

@@ -1,12 +1,12 @@
 /**
  * Copyright (c) 2017, 2020 Eurotech and/or its affiliates and others
- * 
+ *
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
- * 
+ *
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Contributors:
  *  Eurotech
  *  Amit Kumar Mondal (admin@amitinside.com)
@@ -14,7 +14,6 @@
 package org.eclipse.kura.internal.driver.s7plc;
 
 import java.util.List;
-
 import org.eclipse.kura.core.configuration.metatype.Tad;
 import org.eclipse.kura.core.configuration.metatype.Toption;
 import org.eclipse.kura.core.configuration.metatype.Tscalar;
@@ -109,5 +108,4 @@ public final class S7PlcChannelDescriptor implements ChannelDescriptor {
 
         return elements;
     }
-
 }

@@ -24,7 +24,6 @@ import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-
 import org.eclipse.kura.configuration.ConfigurationService;
 import org.eclipse.kura.core.configuration.metatype.Tad;
 import org.eclipse.kura.driver.Driver;
@@ -130,7 +129,8 @@ public class S7PlcDriverItTest {
         @SuppressWarnings("unchecked")
         final List<Tad> descriptor = (List<Tad>) driver.getChannelDescriptor().getDescriptor();
 
-        assertEquals(Arrays.asList("s7.data.type", "data.block.no", "offset", "byte.count", "bit.index"),
+        assertEquals(
+                Arrays.asList("s7.data.type", "data.block.no", "offset", "byte.count", "bit.index"),
                 descriptor.stream().map(Tad::getId).collect(Collectors.toList()));
     }
 
@@ -145,8 +145,7 @@ public class S7PlcDriverItTest {
             Thread.sleep(500);
         }
 
-        throw new IllegalStateException("no " + clazz.getSimpleName() + " service matching " + filter + " in "
-                + TIMEOUT_SECONDS + " seconds");
+        throw new IllegalStateException(
+                "no " + clazz.getSimpleName() + " service matching " + filter + " in " + TIMEOUT_SECONDS + " seconds");
     }
-
 }
