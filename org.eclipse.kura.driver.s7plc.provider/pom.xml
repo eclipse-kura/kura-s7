@@ -14,9 +14,7 @@
      Amit Kumar Mondal (admin@amitinside.com)
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -29,9 +27,7 @@
     <description>S7 PLC Communication Driver</description>
 
     <properties>
-        <sonar.coverage.jacoco.xmlReportPaths>
-            ${project.basedir}/../tests/*/target/site/jacoco-aggregate/jacoco.xml
-        </sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../tests/*/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 
         <driver.block.jar>${project.build.directory}/lib/org.eclipse.kura.driver.block.jar</driver.block.jar>
     </properties>
@@ -78,10 +74,10 @@
                 <executions>
                     <execution>
                         <id>copy-embedded-libs</id>
-                        <phase>generate-resources</phase>
                         <goals>
                             <goal>copy-dependencies</goal>
                         </goals>
+                        <phase>generate-resources</phase>
                         <configuration>
                             <outputDirectory>${project.build.directory}/lib</outputDirectory>
                             <includeArtifactIds>org.eclipse.kura.driver.block</includeArtifactIds>

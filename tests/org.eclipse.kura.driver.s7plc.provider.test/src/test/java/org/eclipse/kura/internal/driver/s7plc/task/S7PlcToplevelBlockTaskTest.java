@@ -1,12 +1,12 @@
 /*******************************************************************************
- * Copyright (c) 2017, 2022 Eurotech and/or its affiliates and others
- * 
+ * Copyright (c) 2017, 2026 Eurotech and/or its affiliates and others
+ *
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
- * 
+ *
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Contributors:
  *  Eurotech
  ******************************************************************************/
@@ -19,17 +19,15 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import Moka7.S7;
+import Moka7.S7Client;
 import java.io.IOException;
 import java.util.Collections;
-
 import org.eclipse.kura.driver.Driver.ConnectionException;
 import org.eclipse.kura.driver.block.task.Mode;
 import org.eclipse.kura.internal.driver.s7plc.S7PlcDriver;
 import org.eclipse.kura.internal.driver.s7plc.S7PlcDriverTest;
 import org.junit.Test;
-
-import Moka7.S7;
-import Moka7.S7Client;
 
 public class S7PlcToplevelBlockTaskTest {
 
